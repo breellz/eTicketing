@@ -1,8 +1,6 @@
 import { DataSource } from "typeorm";
 import * as path from "path";
 
-
-
 const databaseUrl = () => {
   switch (process.env.NODE_ENV) {
     case "test":

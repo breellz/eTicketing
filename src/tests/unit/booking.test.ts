@@ -1,11 +1,8 @@
-import { Request, Response, NextFunction } from 'express';
-import { createEvent } from '../../controller/event.controller';
-import { createEventValidation } from '../../utils/helpers/validators/event-validators';
+import { NextFunction, Request, Response } from 'express';
+import { CustomRequest } from '../../middleware/auth';
+import { bookEvent, cancelBooking } from '../../controller/booking.controller';
 import EventServices from '../../services/event';
 import { sendErrorResponse, sendSuccessResponse } from '../../utils/helpers/responseHandler';
-import AppError from '../../utils/helpers/errorHandler';
-import { bookEvent, cancelBooking } from '../../controller/booking.controller';
-import { CustomRequest } from 'src/middleware/auth';
 
 jest.mock('../../services/event', () => ({
   getEventById: jest.fn(),

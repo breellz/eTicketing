@@ -1,16 +1,11 @@
 import {
-  Entity,
   Column,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  OneToOne,
-  JoinColumn,
-  OneToMany,
-  Index,
-  Unique,
   CreateDateColumn,
-  UpdateDateColumn,
-  Not,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  Unique,
+  UpdateDateColumn
 } from "typeorm";
 import { Booking } from "./bookings.entity";
 import { WaitList } from "./waitList.entity";
