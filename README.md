@@ -22,7 +22,7 @@ username: user3
 
 password: password3
 
-- [Complete Documentation can be found here]("https://documenter.getpostman.com/view/11784799/2sAYX6q35q")
+- [Complete Documentation can be found here](https://documenter.getpostman.com/view/11784799/2sAYX6q35q)
 
 # Setup and Running Instructions
 
