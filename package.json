@@ -1,0 +1,41 @@
+{
+  "name": "eticketing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "cross-env NODE_ENV=test jest --detectOpenHandles --runInBand --coverage",
+    "build": "npx tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts",
+    "c:migration": "typeorm migration:create ./src/migrations/populateDb",
+    "g:migration": "dotenv -- cross-env NODE_ENV=development ts-node ./node_modules/typeorm/cli.js migration:generate ./src/migrations/update-bookings -d src/database/postgres.ts",
+    "migrate": "npx typeorm-ts-node-commonjs migration:run -d src/datasource",
+    "revert": "npx typeorm-ts-node-commonjs migration:revert -d src/datasource"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.21.2",
+    "jest": "^29.7.0",
+    "joi": "^17.13.3",
+    "nodemon": "^3.1.9",
+    "pg": "^8.13.1",
+    "supertest": "^7.0.0",
+    "typeorm": "^0.3.20"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.0",
+    "@types/supertest": "^6.0.2",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.7",
+    "dotenv-cli": "^8.0.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.7.3"
+  }
+}
