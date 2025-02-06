@@ -1,13 +1,5 @@
 # eTicketing
 
-Documentation
-
-# eTicketing
-
-## Description
-
-eTicketing is a ticket booking system built with Node.js, Express, TypeORM, and PostgreSQL. It allows users to book events, manage bookings, and handle waitlists.
-
 ## Documentation
 
 I added a basic authentication for actions like booking and cancelling a ticket, I didn't add a signup flow as it was out of the scope for the project, so I populated the database with some user accounts, which are
@@ -75,11 +67,11 @@ Apart from Nodejs and express that were required for this project, I also used
 
 ## Rate Limiting
 
-- **express-rate-limit**: An out of the box tool for rate limiting. I went ahead to make it as simple as possible by just limiting requeat per ip address to 30 requests per minute. I can also have this customized for any use case
+- **express-rate-limit**: An out of the box tool for rate limiting. I went ahead to make it as simple as possible by just limiting request per ip address to 30 requests per minute. I can also have this customized for any use case
 
 ## Error Handling
 
-- I added a centralized error handling to make my responses both success and failures consistent across all endpoints. This will make things easier for the client and also integrating with the api.
+- I added a centralized error handling to make my responses both success and failures consistent across all endpoints. This will make things easier for the client and also when integrating with the api.
 
 ## Database schema
 
