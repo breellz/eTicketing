@@ -4,6 +4,8 @@ import datasource from "./database/postgres";
 import { apiRouter } from "./routes/api.route";
 import { errorHandler } from './utils/helpers/errorHandler';
 import { populateDB } from "./utils/helpers/setup-database";
+import { limiter } from "./middleware/rateLimiter";
+
 export const main = async (): Promise<express.Application> => {
   try {
     const app: express.Application = express();
@@ -11,6 +13,7 @@ export const main = async (): Promise<express.Application> => {
     await populateDB()
 
     app.use(express.json());
+    app.use(limiter); // rate limit requests to 30 requests per minute per Ip
     app.use("/", apiRouter);
     app.use(errorHandler)
 
