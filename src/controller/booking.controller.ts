@@ -3,7 +3,8 @@ import { CustomRequest } from "../middleware/auth";
 import AppError from "../utils/helpers/errorHandler";
 import { sendErrorResponse, sendSuccessResponse } from "../utils/helpers/responseHandler";
 import { bookEventValidation } from "../utils/helpers/validators/event-validators";
-import EventServices from "../services/event"
+import EventServices from "../services"
+import logger from "../utils/helpers/logger";
 
 export const bookEvent = async (req: CustomRequest, res: Response, next: NextFunction) => {
   const { eventId } = req.params;
@@ -23,6 +24,7 @@ export const bookEvent = async (req: CustomRequest, res: Response, next: NextFun
     // Check if event is already booked by user
     const isBooked = await EventServices.isEventBookedByUser(req.user!.id, Number(eventId));
     if (isBooked) {
+      logger.info(`User ${req.user!.username} (ID: ${req.user!.id}) tried to book event ${event.title} (ID: ${event.id}) again`);
       return sendErrorResponse(res, "Event already booked by user", 400);
     }
 
@@ -30,12 +32,16 @@ export const bookEvent = async (req: CustomRequest, res: Response, next: NextFun
     if (event.availableTickets === 0) {
 
       const response = await EventServices.addToWaitList(req.user!.id, Number(eventId));
+      //create a log
+      logger.info(`User ${req.user!.username} (ID: ${req.user!.id}) added to waitlist for event ${event.title} (ID: ${event.id})`);
       return sendSuccessResponse(res, response.message, 200);
     }
 
     // Book event
     const response = await EventServices.bookEvent(req.user!.id, Number(eventId));
+    //create a log
 
+    logger.info(`User ${req.user!.username} (ID: ${req.user!.id}) booked event ${event.title} (ID: ${event.id})`);
     return sendSuccessResponse(res, response.message, 200);
   } catch (error) {
     console.log(error)
@@ -59,11 +65,15 @@ export const cancelBooking = async (req: CustomRequest, res: Response, next: Nex
     // Check if event is already booked by user
     const isBooked = await EventServices.isEventBookedByUser(req.user!.id, Number(eventId));
     if (!isBooked) {
+      //create a log
+      logger.info(`User ${req.user!.username} (ID: ${req.user!.id}) tried to cancel booking for event ${event.title} (ID: ${event.id}) which is not booked`);
       return sendErrorResponse(res, "Event not booked by user", 400);
     }
 
     const response = await EventServices.cancelBooking(req.user!.id, Number(eventId));
 
+    //create a log
+    logger.info(`User ${req.user!.username} (ID: ${req.user!.id}) cancelled booking for event ${event.title} (ID: ${event.id})`);
     return sendSuccessResponse(res, response.message, 200);
 
   } catch (error) {

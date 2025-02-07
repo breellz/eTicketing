@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import { createEvent, getEventStatus } from '../../controller/event.controller';
 import { createEventValidation } from '../../utils/helpers/validators/event-validators';
-import EventServices from '../../services/event';
+import EventServices from '../../services';
 import { sendErrorResponse, sendSuccessResponse } from '../../utils/helpers/responseHandler';
 import AppError from '../../utils/helpers/errorHandler';
 
-jest.mock('../../services/event', () => ({
+jest.mock('../../services', () => ({
   createEvent: jest.fn(),
   getEventById: jest.fn(),
 }));

@@ -1,9 +1,10 @@
-import datasource from "../../database/postgres"
-import { ICreateEventData } from "../../utils/helpers/validators/event-validators"
-import { Event } from "../../entities/event.entity"
-import { User } from "../../entities/user.entity"
-import { Booking } from "../../entities/bookings.entity"
-import { WaitList } from "../../entities/waitList.entity"
+import datasource from "../database/postgres"
+import { ICreateEventData } from "../utils/helpers/validators/event-validators"
+import { Event } from "../entities/event.entity"
+import { User } from "../entities/user.entity"
+import { Booking } from "../entities/bookings.entity"
+import { WaitList } from "../entities/waitList.entity"
+import logger from "../utils/helpers/logger"
 
 export const createEvent = async (data: ICreateEventData) => {
   try {
@@ -60,7 +61,7 @@ export const addToWaitList = async (userId: number, eventId: number) => {
 }
 
 //to ensure thread safety and handle racs conditions, 
-// I made booking transactional and locked the databse until the current transaction is completed
+// I made booking transactional and locked the database until the current transaction is completed
 export const bookEvent = async (userId: number, eventId: number) => {
   const entityManager = datasource.createEntityManager();
 
@@ -97,6 +98,7 @@ export const bookEvent = async (userId: number, eventId: number) => {
   });
 };
 
+//I made this transactional to ensure atomicity and prevent data inconsistency
 export const cancelBooking = async (userId: number, eventId: number) => {
   const entityManager = datasource.createEntityManager();
 
@@ -132,7 +134,7 @@ export const cancelBooking = async (userId: number, eventId: number) => {
 
       }
       await eventRepository.save(event);
-
+      logger.info(`User ${userId} booking cancelled and ${nextUserOnWaitList.user.username} booked from waitlist`)
       return { message: "Event booking cancelled" };
     }
     event.availableTickets += 1;

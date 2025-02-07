@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 import { CustomRequest } from '../../middleware/auth';
 import { bookEvent, cancelBooking } from '../../controller/booking.controller';
-import EventServices from '../../services/event';
+import EventServices from '../../services';
 import { sendErrorResponse, sendSuccessResponse } from '../../utils/helpers/responseHandler';
 
-jest.mock('../../services/event', () => ({
+//mocking frunctions in the event service so they are not actually called, 
+// because I want to test in isolation
+jest.mock('../../services', () => ({
   getEventById: jest.fn(),
   isEventBookedByUser: jest.fn(),
   addToWaitList: jest.fn(),
@@ -21,7 +23,7 @@ describe('Create Booking test', () => {
   let req: Partial<CustomRequest>;
   let res: Partial<Response>;
   let next: Partial<NextFunction>;
-
+  // I'm creating my own request and response objects to test the controller functions
   beforeEach(() => {
     req = {
       params: {

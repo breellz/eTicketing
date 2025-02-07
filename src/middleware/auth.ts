@@ -8,14 +8,14 @@ export interface CustomRequest extends Request {
   user?: IUser;
 }
 
+// Middleware to authenticate user, 
+// uses a basic authentication header and tries to find the user in the database
 export const auth = async (
   req: CustomRequest,
   res: Response,
   next: NextFunction
 ) => {
   try {
-
-
     const authHeader = req.header("Authorization");
 
     if (!authHeader || !authHeader.startsWith("Basic ")) {
