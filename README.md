@@ -43,11 +43,11 @@ cd eticketing`
 
 3. create a .env file in the root directory with these environment variables
 
-`DEV_DATABASE_URL=postgresql://postgres.cwpbdafsoilcdeionilp:FHtud5LS-CpyhnV@aws-0-eu-central-1.pooler.supabase.com:5432/postgres
+`DEV_DATABASE_URL=postgresql://postgres.cwpbdafsoilcdeionilp:FHtud5LS-CpyhnV@aws-0-eu-central-1.pooler.supabase.com:5432/postgres`
 
-TEST_DATABASE_URL=postgresql://postgres.xcvcdagrgmublebhbtar:FHtud5LS-CpyhnV@aws-0-eu-central-1.pooler.supabase.com:5432/postgres
+`TEST_DATABASE_URL=postgresql://postgres.xcvcdagrgmublebhbtar:FHtud5LS-CpyhnV@aws-0-eu-central-1.pooler.supabase.com:5432/postgres`
 
-PORT=9999`
+`PORT=9999`
 
 4. Run the development server
    `npm run dev`
